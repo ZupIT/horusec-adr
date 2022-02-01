@@ -30,7 +30,7 @@
 
 ## **About** 
 
-This repository contains documentation of the [Horusec](https://horusec.io) team's decisions made using the [ADR architectural pattern](https://https://adr.github.io/)
+This repository contains documentation of the [Horusec](https://horusec.io) team's decisions made using the [ADR architectural pattern](https://adr.github.io/)
 
 ## **Structure**
 This project has two sections:
