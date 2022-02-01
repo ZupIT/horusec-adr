@@ -81,7 +81,7 @@ Signed-off-by: Name < e-mail address >
 For this method, your name and e-mail must be the same registered on your GitHub account.
 
 ## **License**
-[**Apache License 2.0**](https://github.com/ZupIT/horusec-engine/blob/main/LICENSE).
+[**Apache License 2.0**](https://github.com/ZupIT/horusec-adr/blob/main/LICENSE).
 
 ## **Community**
 Do you have any question about Horusec? Let's chat in our [**forum**](https://forum.zup.com.br/).
