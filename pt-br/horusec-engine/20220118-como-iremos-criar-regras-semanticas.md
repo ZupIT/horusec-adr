@@ -7,7 +7,7 @@
 
 ## Contexto e Problema
 
-Nós queremos criar um novo motor usando a análise semântica do [tree-sitter](https://github.com/tree-sitter/tree-sitter) no horusec-engine para diminuir a quantidade de falsos positivos. Tendo esse contexto, como iremos criar as regras?
+Nós queremos criar um novo motor usando a análise semântica do [tree-sitter](https://github.com/tree-sitter/tree-sitter) no Horusec-Engine para diminuir a quantidade de falsos positivos. Tendo esse contexto, como iremos criar as regras?
 
 
 ## Decisão
@@ -16,20 +16,20 @@ Escrever as regras usando código Go com base em AST/IR.
 
 ## Motivadores da decisão
 
-1. **Por que usar GoLang para criar as regras?**
-- Como o time é especializado em GoLang e somos um time pequeno não vale a pena manter um fork de cada linguagem do tree-sitter.
+1. **Razões para usar Golang para criar essas regras**
+- Como o time é especializado em GoLang e somos uma equipe pequena, não vale a pena manter um fork de cada linguagem do tree-sitter.
 - O Horusec terá um fork do [go-tree-sitter](https://github.com/smacker/go-tree-sitter), pois é mantido por uma pessoa não por uma empresa.
 - A técnica utilizada por ele é o [FFI](https://en.wikipedia.org/wiki/Foreign_function_interface).
-- Esse pacote `go-tree-sitter` implementa binds de código `C` para `GoLang`. Onde o código `C` representa o parse da linguagem como, por exemplo:
+- Esse pacote `go-tree-sitter` implementa binds de código `C` para `GoLang`, no qual o código `C` representa o parse da linguagem como, por exemplo:
   - [tree-sitter-go](https://github.com/tree-sitter/tree-sitter-go)
   - [tree-sitter-java](https://github.com/tree-sitter/tree-sitter-java)
   - [tree-sitter-javascript](https://github.com/tree-sitter/tree-sitter-javascript)
   - etc...
 
-2. **Para continuar no formato Open Core da análise semântica as regras podem ser implementadas externamente:**
+2. **A análise semântica permite que as regras sejam implementadas externamente, o que contribui para continuar o formato Open Core:**
 - Neste formato, conseguimos usar o metodo de `plugins` do Golang e rodar códigos em runtime.
 - Teremos um desafio, em que os plugins devem ser compilados com a mesma versão de Go da CLI.
-- Poderemos ter mais um comando chamado `horusec install` e o usuário passará o repositório com as regras externas que serão necessárias para serem adicionadas ao motor de análise semântica
+- Poderemos ter mais um comando chamado `horusec install` e o usuário passará o repositório com as regras externas que serão necessárias para serem adicionadas ao motor de análise semântica.
 - Poderemos ter uma lista de plugins na manager e o horusec identifica e instala em sua base antes de iniciar a análise.
 
 ## Opções consideradas
