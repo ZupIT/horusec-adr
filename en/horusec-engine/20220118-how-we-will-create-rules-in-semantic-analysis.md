@@ -1,4 +1,4 @@
-# How we will create rules in semantic analysis
+# How will we create rules in semantic analysis?
 
 - **Status:** proposed
 - **Decision makers:** [wiliansilvazup](https://github.com/wiliansilvazup), [nathanmartinszup](https://github.com/nathanmartinszup), [matheusalcantarazup](https://github.com/matheusalcantarazup), [iancardosozup](https://github.com/iancardosozup), [oliveirafelipezup](https://github.com/oliveirafelipezup)
@@ -7,7 +7,7 @@
 
 ## Context and problem
 
-We want to create a new engine using the semantic analysis of the [tree-sitter](https://github.com/tree-sitter/tree-sitter) in the Horusec-Engine to decrease the amount of false positives. Having this context, how will we create the rules?
+We want to create a new engine using the semantic analysis of the [tree-sitter](https://github.com/tree-sitter/tree-sitter) in the Horusec-Engine to decrease the number of false positives. Considering this context, how will we create the rules?
 
 
 ## Decision
@@ -16,8 +16,8 @@ Write rules using GO code based on AST / go
 
 ## Decision-making motivators
 
-1. **Why use Golang to create the rules?**
-- As the team specializes in Golang and we are a small team is not worth keeping a fork of each language of the Tree-Sitter.
+1. **Reasons to use Golang to create these rules**
+- As the team specializes in Golang and we are a small team, it doesn't worth keeping a fork of each language of the Tree-Sitter.
 - Horusec will have a fork of the [go-tree-sitter](https://github.com/smacker/go-tree-sitter), for it is maintained by a person not by a company.
 - The technique used by it is the [FFI](https://en.wikipedia.org/wiki/Foreign_function_interface).
 - This package `go-tree-sitter` Implements Binds of Code `C` for `GoLang`. Where the code `C` represents the parse of language, for example:
@@ -26,7 +26,7 @@ Write rules using GO code based on AST / go
   - [tree-sitter-javascript](https://github.com/tree-sitter/tree-sitter-javascript)
   - etc...
 
-2. **To continue in the Open Core format of the semantic analysis the rules can be implemented externally:**
+2. **The semantic analysis rules can be implemented externally, which contributes on continuing into Open Core format**
 - In this format, we managed to use the method of `plugins` from Golang and run codes in Runtime.
 - We will have a challenge that plugins should be compiled with the same GO version of CLI.
 - We can have another command called `horusec install` and the user passes the repository with the external rules that need to be added in the semantic analysis engine
