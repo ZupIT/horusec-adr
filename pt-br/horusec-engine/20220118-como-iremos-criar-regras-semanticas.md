@@ -7,29 +7,29 @@
 
 ## Contexto e Problema
 
-Nós queremos criar um novo motor usando a análise semântica do [tree-sitter](https://github.com/tree-sitter/tree-sitter) no horusec-engine para diminuir a quantidade de falso positivos. Tendo esse contexto, como iremos criar as regras?
+Nós queremos criar um novo motor usando a análise semântica do [tree-sitter](https://github.com/tree-sitter/tree-sitter) no Horusec-Engine para diminuir a quantidade de falsos positivos. Tendo esse contexto, como iremos criar as regras?
 
 
 ## Decisão
 
-Escrever as regras usando código Go com base em AST/IR
+Escrever as regras usando código Go com base em AST/IR.
 
 ## Motivadores da decisão
 
-1. **Por que usar GoLang para criar as regras?**
-- Como o time é especializado em GoLang e somos um time pequeno não vale a pena manter um fork de cada linguagem do tree-sitter.
+1. **Razões para usar Golang para criar essas regras**
+- Como o time é especializado em GoLang e somos uma equipe pequena, não vale a pena manter um fork de cada linguagem do tree-sitter.
 - O Horusec terá um fork do [go-tree-sitter](https://github.com/smacker/go-tree-sitter), pois é mantido por uma pessoa não por uma empresa.
 - A técnica utilizada por ele é o [FFI](https://en.wikipedia.org/wiki/Foreign_function_interface).
-- Esse pacote `go-tree-sitter` implementa binds de código `C` para `GoLang`. Onde o código `C` representa o parse da linguagem como por exemplo:
+- Esse pacote `go-tree-sitter` implementa binds de código `C` para `GoLang`, no qual o código `C` representa o parse da linguagem como, por exemplo:
   - [tree-sitter-go](https://github.com/tree-sitter/tree-sitter-go)
   - [tree-sitter-java](https://github.com/tree-sitter/tree-sitter-java)
   - [tree-sitter-javascript](https://github.com/tree-sitter/tree-sitter-javascript)
   - etc...
 
-2. **Para continuar no formato Open Core da análise semântica as regras podem ser implementadas externamente:**
-- Neste formato conseguimos usar o metodo de `plugins` do golang e rodar codigos em runtime.
-- Teremos um desafio que os plugins devem ser compilados com a mesma versão de go da CLI.
-- Poderemos ter mais um comando chamado `horusec install` e o usuário passar o repositório com as regras externas que será necessário ser adicionadas no motor de análise semantica
+2. **A análise semântica permite que as regras sejam implementadas externamente, o que contribui para continuar o formato Open Core:**
+- Neste formato, conseguimos usar o metodo de `plugins` do Golang e rodar códigos em runtime.
+- Teremos um desafio, em que os plugins devem ser compilados com a mesma versão de Go da CLI.
+- Poderemos ter mais um comando chamado `horusec install` e o usuário passará o repositório com as regras externas que serão necessárias para serem adicionadas ao motor de análise semântica.
 - Poderemos ter uma lista de plugins na manager e o horusec identifica e instala em sua base antes de iniciar a análise.
 
 ## Opções consideradas
@@ -37,13 +37,13 @@ Escrever as regras usando código Go com base em AST/IR
 ### Utilizar a propria linguagem de programação como linguagem de regras
 
 #### Prós
-  - Usuários não precisam aprender nada "novo" para escrever suas proprias regras
+  - Usuários não precisam aprender nada "novo" para escrever suas próprias regras
 #### Contras
-  - Precisarimos manter um fork de cada grammar do tree-sitter (considerando que teriamos sintaxes customizadas, como metavariables $name, e ellipis ...)
-  - Talvez seja dificil analisar contextos fora de uma função (por exemplo, uma função que processa um argumento (lê um arquivo) pode ser considerado vulneravel, porém se quem chama essa função só utiliza argumentos hard coded então ela não é vulneravel)
-  - Fazer matching de código considerando contexto é dificil
-  - Semgrep já faz isso, o que trariamos de novo/diferente?
-  - Somos uma ferramenta de segurança, uma implementação de regras como essa seria generica, de uso geral, para buscar por padrões de código (pode ser vulnerabilidade, code smell, bugs, etc), vale a pena o esforço?
+  - Precisaríamos manter um fork de cada grammar do tree-sitter (considerando que teríamos sintaxes customizadas, como metavariables $name, e ellipis ...)
+  - Talvez seja difícil analisar contextos fora de uma função (por exemplo, uma função que processa um argumento (lê um arquivo) pode ser considerado vulnerável, porém se quem chama essa função só utiliza argumentos hard coded então ela não é vulnerável)
+  - Fazer matching de código considerando contexto é difícil
+  - Semgrep já faz isso, o que traríamos de novo/diferente?
+  - Somos uma ferramenta de segurança, uma implementação de regras como essa seria genérica, de uso geral, para buscar por padrões de código (pode ser vulnerabilidade, code smell, bugs, etc), vale a pena o esforço?
 
 ## Links
 - [FFI](https://en.wikipedia.org/wiki/Foreign_function_interface)
